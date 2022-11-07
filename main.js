@@ -1,9 +1,10 @@
 const CARD_SINGLE_COLOR_COUNT = 4;
 const CARD_DOUBLE_COLOR_COUNT = 3;
 const CURRENT_CARD_SELECTOR = '.current-card';
-const DOUBLE_MODIFIER = 'double';
+const DOUBLE_DESCRIPTION = 'double';
 const DECK_STACK_SELECTOR = '.deck-take';
 const SHUFFLE_BUTTON_SELECTOR = '.shuffle';
+const SINGLE_DESCRIPTION = 'single';
 
 const COLORS = [
   'blue',
@@ -23,6 +24,7 @@ const FACES = [
 
 const DECK_SOURCE = [];
 
+let currentCardElement;
 let currentDeck;
 let previousDeck;
 
@@ -31,10 +33,10 @@ let previousDeck;
 
   COLORS.forEach(function(color) {
     for (let i = 0; i < CARD_SINGLE_COLOR_COUNT; i++) {
-      DECK_SOURCE.push(`${color}`);
+      DECK_SOURCE.push(`${color} ${SINGLE_DESCRIPTION}`);
   
       if (i < CARD_DOUBLE_COLOR_COUNT) {
-        DECK_SOURCE.push(`${color} ${DOUBLE_MODIFIER}`);
+        DECK_SOURCE.push(`${color} ${DOUBLE_DESCRIPTION}`);
       }
     }
   });
@@ -59,8 +61,9 @@ function enableDeck() {
 }
 
 function initGame() {
+  currentCardElement = document.querySelector(CURRENT_CARD_SELECTOR);
   currentDeck = createDeck();
-  
+
   if (previousDeck) {
     if (compareDecks(currentDeck, previousDeck)) {
       return initGame();
@@ -71,6 +74,22 @@ function initGame() {
 
   resetCard();
   enableDeck();
+}
+
+function renderCard(card) {
+  let [kind, description] = card.split(' ');
+  let cardImage = `<div class="card__image"></div>`;
+  let modifierClasses = `card--${kind}`;
+
+  if (description === DOUBLE_DESCRIPTION) {
+    cardImage = `${cardImage}\n${cardImage}`;
+  }
+
+  if (!description) {
+    modifierClasses += ' card--face';
+  }
+
+  currentCardElement.innerHTML = `<div class="card ${modifierClasses}">${cardImage}</div>`;
 }
 
 function resetCard() {  
@@ -110,15 +129,8 @@ function sortRandom() {
 
 function takeCard() {
   let card = currentDeck.pop();
-  let [kind, modifier] = card.split(' ');
-  let currentCardElement = document.querySelector(CURRENT_CARD_SELECTOR);
-  let cardImage = `<div class="card__image card__image--${kind}"></div>`;
 
-  if (modifier === DOUBLE_MODIFIER) {
-    cardImage = `${cardImage}\n${cardImage}`;
-  }
-
-  currentCardElement.innerHTML = `<div class="card">${cardImage}</div>`;
+  renderCard(card);
 
   if (currentDeck.length === 0) {
     disableDeck();

@@ -2,6 +2,12 @@
   --base-bg-color: #f5f5f5;
   --base-size: 10px;
   --bg-color: #fff;
+  --card-color-blue: #00679f;
+  --card-color-green: #2b882f;
+  --card-color-orange: #d96e26;
+  --card-color-purple: #79366a;
+  --card-color-red: #d32021;
+  --card-color-yellow: #d79e00;
   --disabled-fg-color: #999;
   --fg-color: #000;
   --font-size: 1.8rem;
@@ -44,6 +50,9 @@ main {
 .card {
   align-items: center;
   background-color: var(--bg-color);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 12rem;
   border-radius: 0.8rem;
   box-shadow: 0 0 0.4rem rgba(0, 0, 0, 0.4);
   display: flex;
@@ -57,53 +66,58 @@ main {
   width: 12rem;
 }
 
+.card--cone {
+  background-image: url("images/cone.svg");
+}
+
+.card--lollipop {
+  background-image: url("images/lollipop.svg");
+}
+
+.card--peanut {
+  background-image: url("images/peanut.svg");
+}
+
+.card--peppermint {
+  background-image: url("images/peppermint.svg");
+}
+
 .card__image {
-  background-position: center top;
-  background-repeat: no-repeat;
   border-radius: 0.8rem;
+  box-shadow:
+    inset 0.4rem 0.4rem 0.8rem rgba(0, 0, 0, 0.25),
+    inset -0.4rem -0.4rem 0.8rem rgba(255, 255, 255, 0.5);
   height: 7rem;
   margin: 0 auto;
   width: 7rem;
 }
 
-.card__image--blue {
-  background-color: blue;
+.card--face .card__image {
+  box-shadow: none;
 }
 
-.card__image--cone {
-  background-image: url("images/cone.jpg");
+.card--blue .card__image {
+  background-color: var(--card-color-blue);
 }
 
-.card__image--green {
-  background-color: green;
+.card--green .card__image {
+  background-color: var(--card-color-green);
 }
 
-.card__image--lollipop {
-  background-image: url("images/lollipop.jpg");
+.card--orange .card__image {
+  background-color: var(--card-color-orange);
 }
 
-.card__image--orange {
-  background-color: orange;
+.card--purple .card__image {
+  background-color: var(--card-color-purple);
 }
 
-.card__image--peanut {
-  background-image: url("images/peanut.jpg");
+.card--red .card__image {
+  background-color: var(--card-color-red);
 }
 
-.card__image--peppermint {
-  background-image: url("images/peppermint.jpg");
-}
-
-.card__image--purple {
-  background-color: purple;
-}
-
-.card__image--red {
-  background-color: red;
-}
-
-.card__image--yellow {
-  background-color: yellow;
+.card--yellow .card__image {
+  background-color: var(--card-color-yellow);
 }
 
 .cards-container {
@@ -181,6 +195,8 @@ main {
   border: none;
   border-radius: 0.8rem;
   display: inline-block;
+  font-size: 1.6rem;
+  line-height: 2.2rem;
   padding: 1rem 2rem;
 }
 
