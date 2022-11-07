@@ -67,19 +67,19 @@ main {
 }
 
 .card--cone {
-  background-image: url("images/cone.svg");
+  background-image: url("images/cone.jpg");
 }
 
 .card--lollipop {
-  background-image: url("images/lollipop.svg");
+  background-image: url("images/lollipop.jpg");
 }
 
 .card--peanut {
-  background-image: url("images/peanut.svg");
+  background-image: url("images/peanut.jpg");
 }
 
 .card--peppermint {
-  background-image: url("images/peppermint.svg");
+  background-image: url("images/peppermint.jpg");
 }
 
 .card__image {
