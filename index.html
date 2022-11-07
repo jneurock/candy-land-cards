@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Candy Land Cards</title>
+    <meta name="description" content="A virtual deck of cards for use with the board game Candy Land">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="main.css">
+    <!-- TODO: Add some icons -->
+  </head>
+  <body>
+    <main>
+      <div class="container">
+        <h1 class="title">Candy Land Cards</h1>
+        <div class="cards-container">
+          <div class="deck">
+            <div class="deck__stack">
+              <div class="card"></div>
+              <div class="card"></div>
+              <button class="card deck-take">Draw a card</button>
+            </div>
+            <button class="shuffle">Shuffle</button>
+          </div>
+          <div class="current-card"></div>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <div class="container">
+        <h3>Instructions</h3>
+        <p>
+          Click or tap the deck for a new card. To start a new game or if all the cards
+          have been drawn, click the shuffle button for a new deck to continue playing.
+        </p>
+      </div>
+    </footer>
+    <script src="main.js"></script>
+  </body>
+</html>
