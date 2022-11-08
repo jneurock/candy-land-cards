@@ -138,6 +138,8 @@ main {
 }
 
 .current-card .card {
+  opacity: 0;
+  transition: opacity 0.125s;
   top: 1rem;
 }
 

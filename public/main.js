@@ -1,8 +1,11 @@
+const ANIMATION_DELAY = 10;
 const CARD_SINGLE_COLOR_COUNT = 4;
 const CARD_DOUBLE_COLOR_COUNT = 3;
+const CARD_SELECTOR = '.card';
 const CURRENT_CARD_SELECTOR = '.current-card';
 const DOUBLE_DESCRIPTION = 'double';
 const DECK_STACK_SELECTOR = '.deck-take';
+const FADE_DURATION = 125;
 const SHUFFLE_BUTTON_SELECTOR = '.shuffle';
 const SINGLE_DESCRIPTION = 'single';
 
@@ -60,6 +63,20 @@ function enableDeck() {
   document.querySelector(DECK_STACK_SELECTOR).removeAttribute('disabled');
 }
 
+function fadeCard({ opacity }) {
+  let cardElement = currentCardElement.querySelector(CARD_SELECTOR);
+
+  if (!cardElement) return;
+
+  return new Promise(function(resolve) {
+    setTimeout(function() {
+      cardElement.style.opacity = opacity;
+    }, ANIMATION_DELAY);
+
+    setTimeout(resolve, FADE_DURATION);
+  });
+}
+
 function initGame() {
   currentCardElement = document.querySelector(CURRENT_CARD_SELECTOR);
   currentDeck = createDeck();
@@ -76,7 +93,7 @@ function initGame() {
   enableDeck();
 }
 
-function renderCard(card) {
+async function renderCard(card) {
   let [kind, description] = card.split(' ');
   let cardImage = `<div class="card__image"></div>`;
   let modifierClasses = `card--${kind}`;
@@ -89,7 +106,11 @@ function renderCard(card) {
     modifierClasses += ' card--face';
   }
 
+  await fadeCard({ opacity: 0 });
+
   currentCardElement.innerHTML = `<div class="card ${modifierClasses}">${cardImage}</div>`;
+
+  await fadeCard({ opacity: 1 });
 }
 
 function resetCard() {  
@@ -127,13 +148,15 @@ function sortRandom() {
   return a < b ? 1 : a > b ? -1 : 0;
 }
 
-function takeCard() {
+async function takeCard() {
   let card = currentDeck.pop();
 
-  renderCard(card);
+  disableDeck();
 
-  if (currentDeck.length === 0) {
-    disableDeck();
+  await renderCard(card);
+
+  if (currentDeck.length > 0) {
+    enableDeck();
   }
 }
 
